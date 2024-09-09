@@ -6,10 +6,11 @@
 class Airplane
 {
 private:
-    int nOfSeats;
+    int amOfSeatsInRow;
+    int rows;
     std::unordered_set<std::string> bookedFlights;
 public:
-    Airplane(/* args */);
+    Airplane(int amOfSeats, int amOfRows);
     ~Airplane();
     bool IsSeatAvailable(const std::string& seatNo) const ;
 };

@@ -5,7 +5,7 @@
 #include "airplane.h"
 #include "seat.cpp"
 
-Airplane::Airplane(/* args */)
+Airplane::Airplane(int amOfSeats, int amOfRows) : amOfSeatsInRow(amOfSeats), rows(amOfRows)
 {
 }
 
@@ -14,6 +14,5 @@ Airplane::~Airplane()
 }
 
 bool Airplane::IsSeatAvailable(const std::string& seat) const {
-    auto found = bookedFlights.find(seat);
-    return found == bookedFlights.end();
+    return bookedFlights.find(seat) == bookedFlights.end();
 }
