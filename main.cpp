@@ -54,7 +54,7 @@ void processInput(AirplaneTicketMGR& mgr, const std::string& command) {
     } else if (cmd == "viewFlight") {
         std::string date, flightNo;
         ss >> date >> flightNo;
-        std::cout << mgr.viewBookingInfoDateFlightNo(date, flightNo) << std::endl;
+        std::cout << mgr.viewBookingInfoDateFlivieghtNo(date, flightNo) << std::endl;
     } 
     else {
         std::cout << "Invalid command. Type 'help' for a list of commands.\n";
