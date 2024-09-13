@@ -86,25 +86,39 @@ std::string AirplaneTicketMGR::viewBookingInfoID(const int& confirmationID)
 
 
 
-std::string AirplaneTicketMGR::viewBookingInfoUserName(const std::string& username)
-{
-
-    // Implementation to view booking information for the given username
-
-    // Return flight number, date, seat, and the ticket's price for each flight that the user booked
-    return "";
-
+std::string AirplaneTicketMGR::viewBookingInfoUserName(const std::string& username){
+    auto userInfo = userBookings.find(username);
+    if (userInfo != userBookings.end()) {
+        const auto& bookings = userInfo->second;
+        std::string result;
+        for (const auto& booking : bookings) {
+            int ID = booking.second;
+            result += viewBookingInfoID(ID) + "\n"; // Append each booking info with a newline.
+        }
+        return result.empty() ? "No bookings found." : result; // Return all collected booking information.
+    }
+    return "Invalid confirmation ID.";
 }
 
+std::string AirplaneTicketMGR::viewBookingInfoDateFlightNo(const std::string& date, const std::string& fNo) {
+    std::ostringstream resultStream;
+    bool found = false;
 
+    for (const Ticket& ticket : allTickets) {
+        if (ticket.getDate() == date && ticket.getFlightNo() == fNo) {
+            std::string seatNo = ticket.getSeatNumber();
+            resultStream << "Seat: " << seatNo
+                         << ", Username: " << ticket.getPassangerName()
+                         << ", Price: $" << ticket.getSeatPrice(seatNo) << "\n";
+            found = true;
+        }
+    }
 
-std::string AirplaneTicketMGR::viewBookingInfoDateFlightNo(const std::string& date, const std::string& fNo)
-{
+    if (!found) {
+        return "No bookings found for this flight on the specified date.";
+    }
 
-    // Implementation to view booking information for the chosen flight (date and flight number)
-
-    // Return seat, username, and price
-    return "";
+    return resultStream.str();
 }
 
 const int AirplaneTicketMGR::generateConfirmationID() const {
